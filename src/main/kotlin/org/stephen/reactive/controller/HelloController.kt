@@ -1,17 +1,22 @@
 package org.stephen.reactive.controller
 
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import org.stephen.reactive.entity.User
 import org.stephen.reactive.repo.UserRepo
 
 @RestController
-@RequestMapping("/hello")
+@RequestMapping("/user")
 class HelloController(private val userRepo: UserRepo) {
 
 
     @PostMapping("/save")
-    fun saveUser(user: User) = userRepo.save(user)
+    fun saveUser(@RequestBody user: User) = userRepo.save(user)
+
+    @GetMapping("/all")
+    fun findAll() = userRepo.findAll()
+
+
+    @GetMapping("/{id}")
+    fun findUserById(@PathVariable("id") id: Int) = userRepo.findById(id)
 
 }

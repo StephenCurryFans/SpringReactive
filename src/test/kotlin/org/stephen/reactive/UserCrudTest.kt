@@ -16,9 +16,10 @@ class UserCrudTest {
     @Test
     fun testInsert() {
         val mono = userRepo.save(User( null,"stephen", "stephen@gmail.com"))
-        mono.subscribe {
-            println("输出结果$it")
-        }
+
+        val doOnSuccess = mono.doOnSuccess { println(it) }
+        doOnSuccess.subscribe()
+
     }
 
 }
