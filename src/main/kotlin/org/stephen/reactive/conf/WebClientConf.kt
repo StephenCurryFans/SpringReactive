@@ -1,5 +1,7 @@
 package org.stephen.reactive.conf
 
+
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpHeaders
@@ -15,12 +17,9 @@ import org.stephen.reactive.web.UserWebClient
 class WebClientConf {
 
     @Bean
-    fun webClient() = WebClient.builder()
-        .baseUrl("http://192.168.1.251")
+    fun webClient(@Value("\${base.url}") baseUrl: String = "") = WebClient.builder()
+        .baseUrl(baseUrl)
         .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-        .defaultRequest{
-            it.attribute("","")
-        }
         .build()
 
     @Bean
