@@ -15,11 +15,18 @@ class UserCrudTest {
 
     @Test
     fun testInsert() {
-        val mono = userRepo.save(User( null,"stephen", "stephen@gmail.com"))
+        val mono = userRepo.save(User(null, "stephen", "stephen@gmail.com"))
 
         val doOnSuccess = mono.doOnSuccess { println(it) }
         doOnSuccess.subscribe()
 
+    }
+
+
+    @Test
+    fun testFindAll() {
+        val flux = userRepo.findAll()
+        flux.subscribe { println(it) }
     }
 
 }
